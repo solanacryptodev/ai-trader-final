@@ -1,4 +1,16 @@
+import { useBirdeyeTokens } from '../../libs/hooks/useBirdeyeService';
+
 export default function AddToWatchlist() {
+  const { tokens, isLoading, error, fetchTokens } = useBirdeyeTokens();
+
+  const handleTestClick = async () => {
+    console.log('Testing Birdeye service...');
+    await fetchTokens();
+    console.log('Tokens:', tokens());
+    console.log('Is Loading:', isLoading());
+    console.log('Error:', error());
+  };
+
   return (
     <div class="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm border border-slate-700/50 rounded-xl p-6">
       <h3 class="text-white text-lg font-semibold mb-4">Add Token to Watchlist</h3>
@@ -18,7 +30,7 @@ export default function AddToWatchlist() {
             </button>
           </div>
         </div>
-        <button class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2">
+        <button on:click={handleTestClick} class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
           </svg>

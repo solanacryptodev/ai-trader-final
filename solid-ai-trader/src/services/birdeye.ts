@@ -8,7 +8,7 @@ export class BirdeyeService {
     this.apiKey = apiKey;
   }
 
-  async fetchTopTokensByLiquidity(limit: number = 100): Promise<TokenData[]> {
+  async fetchTopTokensByLiquidity(limit: number = 10): Promise<TokenData[]> {
     try {
       const options = {
         method: 'GET',
@@ -20,8 +20,9 @@ export class BirdeyeService {
       };
 
       const url = `${this.baseUrl}/defi/v3/token/list?sort_by=liquidity&sort_type=desc&offset=0&limit=${limit}&ui_amount_mode=scaled`;
-      
+      console.log('url: ', url)
       const response = await fetch(url, options);
+      console.log('birdeye data', response.json())
       
       if (!response.ok) {
         throw new Error(`Birdeye API error: ${response.status} ${response.statusText}`);
