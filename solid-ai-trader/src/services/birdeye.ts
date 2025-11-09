@@ -1,3 +1,5 @@
+'use server'
+
 import { TokenData, BirdeyeToken, BirdeyeResponse } from '../libs/interfaces';
 
 export class BirdeyeService {
