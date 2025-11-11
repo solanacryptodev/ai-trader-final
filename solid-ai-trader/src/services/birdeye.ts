@@ -4,13 +4,14 @@ import { TokenData, BirdeyeToken, BirdeyeResponse } from '../libs/interfaces';
 
 export class BirdeyeService {
   private baseUrl = 'https://public-api.birdeye.so';
+  private endPointUrl = '';
   private apiKey: string;
 
   constructor(apiKey: string) {
     this.apiKey = apiKey;
   }
 
-  async fetchTopTokensByLiquidity(limit: number = 10): Promise<TokenData[]> {
+  async fetchTopTokensByLiquidity(endPoint: string): Promise<TokenData[]> {
     try {
       const options = {
         method: 'GET',
@@ -21,7 +22,13 @@ export class BirdeyeService {
         }
       };
 
-      const url = `${this.baseUrl}/defi/v3/token/list?sort_by=liquidity&sort_type=desc&offset=0&limit=${limit}&ui_amount_mode=scaled`;
+      this.endPointUrl = endPoint;
+
+      if (this.endPointUrl.length == 0) {
+        throw new Error(`Issue with endpoint URL. Length of 0.`);
+      }
+
+      const url = `${this.baseUrl}${this.endPointUrl}`;
       console.log('url: ', url)
       const response = await fetch(url, options);
       console.log('birdeye data', response.json())
